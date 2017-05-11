@@ -12,6 +12,7 @@
     <modules>
         <module>jdbc</module>
         <module>services</module>
+        <module>web</module>
     </modules>
 
     <properties>

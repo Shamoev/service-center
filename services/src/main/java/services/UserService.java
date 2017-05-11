@@ -1,4 +1,4 @@
-package com.source.it.services;
+package services;
 
 import jdbc.exceptions.GenericDaoException;
 import jdbc.manager.AbstractManagerFactory;
