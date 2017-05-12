@@ -57,7 +57,8 @@ public class LoginServlet extends HttpServlet {
                     params.put(current, req.getParameter(current));
             }
         try {
-            Thread.sleep(60_000L);
+            System.out.println("be-be-be");
+            Thread.sleep(1L); // !!!
         } catch (InterruptedException e) {}
         String login;
             if ((login = params.get("login")) != null) {
