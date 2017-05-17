@@ -5,10 +5,7 @@ import ua.com.sourceit.jdbc.model.User;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Enumeration;
@@ -59,18 +56,26 @@ public class LoginServlet extends HttpServlet {
                     String current = parameterNames.nextElement();
                     params.put(current, req.getParameter(current));
             }
-        try {
+        /*try {
             System.out.println("be-be-be");
             Thread.sleep(1L); // !!!
-        } catch (InterruptedException e) {}
+        } catch (InterruptedException e) {}*/
         String login;
             if ((login = params.get("login")) != null) {
+                System.out.println("be-be-be");
                 User user = userService.getUserByLogin(login);
                 if (user == null || !user.getPassword().equals(params.get("password"))) {
+                    HttpSession session = req.getSession(true);
+                    session.setAttribute("loginFailed", true);
+                    Cookie cookie = new Cookie("cookie-example", "true");
+                    resp.addCookie(cookie);
                     resp.sendRedirect("/services/login");
                 } else {
                     HttpSession session = req.getSession(true);
                     session.setAttribute("user", user);
+                    session.setAttribute("loginFailed", false);
+                    //Cookie cookie = new Cookie("user_logon", "true");
+                    //resp.addCookie(cookie);
                     resp.sendRedirect("/services/welcome");
                 }
             }
